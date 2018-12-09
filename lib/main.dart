@@ -14,27 +14,28 @@ class MyApp extends StatelessWidget {
 }
 
 class RandomWordsState extends State<RandomWords> {
+  final List<WordPair> _suggestions = <WordPair>[];
+  final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
+
   @override
   Widget build(BuildContext context) {
-    // final wordPair = WordPair.random();
-    // return Text(wordPair.asPascalCase);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Startup Name Generator'),
+    return new Scaffold(
+      appBar: new AppBar(
+        title: const Text('Startup Name Generator'),
       ),
       body: _buildSuggestions(),
     );
   }
 
-  final _suggestions = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 18.0);
   Widget _buildSuggestions() {
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return Divider();
+      itemBuilder: (BuildContext _context, int i) {
+        if (i.isOdd) {
+          return const Divider();
+        }
 
-        final index = i ~/ 2;
+        final int index = i ~/ 2;
         if (index >= _suggestions.length) {
           _suggestions.addAll(generateWordPairs().take(10));
         }
